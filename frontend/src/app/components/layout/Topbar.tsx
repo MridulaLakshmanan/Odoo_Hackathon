@@ -97,7 +97,7 @@ export function Topbar() {
                         <p className="text-xs font-semibold text-gray-800 truncate">{n.title}</p>
                         <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{n.message}</p>
                         <p className="text-xs text-gray-400 mt-1">
-                          {formatDistanceToNow(new Date(n.timestamp), { addSuffix: true })}
+                          {n.timestamp ? formatDistanceToNow(new Date(n.timestamp), { addSuffix: true }) : ''}
                         </p>
                       </div>
                       {!n.read && (

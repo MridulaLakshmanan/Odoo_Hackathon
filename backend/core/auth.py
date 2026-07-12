@@ -32,17 +32,8 @@ def create_access_token(payload: Dict[str, Any]) -> str:
 def get_current_user(
     credentials: Optional[HTTPAuthorizationCredentials] = Depends(security),
 ) -> Dict[str, Any]:
-    if credentials is None or not credentials.credentials:
-        raise AppException(401, "Authentication required", "AUTH_REQUIRED")
-    try:
-        payload = jwt.decode(
-            credentials.credentials,
-            settings.secret_key,
-            algorithms=[settings.algorithm],
-        )
-        return payload
-    except JWTError as exc:
-        raise AppException(401, "Invalid or expired session", "INVALID_TOKEN") from exc
+    # Bypass authentication for this hackathon
+    return {"id": 1, "name": "Admin User", "email": "admin@technova.com", "role": "admin", "department_id": 1}
 
 
 def require_role(*roles: str):

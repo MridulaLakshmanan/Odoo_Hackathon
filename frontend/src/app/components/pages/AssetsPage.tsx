@@ -305,7 +305,7 @@ export function AssetsPage() {
                   <td className="px-4 py-3 text-xs text-gray-600">{getLoc(asset.locationId)}</td>
                   <td className="px-4 py-3"><StatusBadge status={asset.condition} /></td>
                   <td className="px-4 py-3"><StatusBadge status={asset.status} /></td>
-                  <td className="px-4 py-3 text-xs text-gray-700 font-medium">${asset.purchaseValue.toLocaleString()}</td>
+                  <td className="px-4 py-3 text-xs text-gray-700 font-medium">${(asset.purchaseValue ?? 0).toLocaleString()}</td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-0.5">
                       <TipBtn label="View Details" onClick={() => navigate('asset-details', asset.id)} icon={Eye} color="#714B67" />

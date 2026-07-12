@@ -140,7 +140,7 @@ export function DashboardPage() {
                         </div>
                       </td>
                       <td className="px-5 py-3 text-gray-500 text-xs">
-                        {formatDistanceToNow(new Date(al.fromDate), { addSuffix: true })}
+                        {al.fromDate ? formatDistanceToNow(new Date(al.fromDate), { addSuffix: true }) : ''}
                       </td>
                       <td className="px-5 py-3">
                         <StatusBadge status={al.status} />
@@ -180,7 +180,7 @@ export function DashboardPage() {
                       <p className="text-xs font-semibold text-gray-800">{n.title}</p>
                       <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{n.message}</p>
                       <p className="text-xs text-gray-400 mt-1">
-                        {formatDistanceToNow(new Date(n.timestamp), { addSuffix: true })}
+                        {n.timestamp ? formatDistanceToNow(new Date(n.timestamp), { addSuffix: true }) : ''}
                       </p>
                     </div>
                     {!n.read && <span className="ml-auto w-2 h-2 rounded-full mt-1 shrink-0" style={{ backgroundColor: '#714B67' }} />}

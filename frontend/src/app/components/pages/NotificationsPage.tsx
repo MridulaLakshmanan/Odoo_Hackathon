@@ -78,7 +78,7 @@ export function NotificationsPage() {
                       </div>
                     </div>
                     <p className="text-xs text-gray-400 mt-1.5">
-                      {formatDistanceToNow(new Date(n.timestamp), { addSuffix: true })}
+                      {n.timestamp ? formatDistanceToNow(new Date(n.timestamp), { addSuffix: true }) : ''}
                     </p>
                   </div>
                 </div>

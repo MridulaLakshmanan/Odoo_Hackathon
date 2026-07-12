@@ -15,7 +15,7 @@ def create_booking(payload: BookingCreateRequest, current_user=Depends(get_curre
     return ApiResponse(
         message="Booking created",
         data=booking_service.create_booking(
-            payload.resource_asset_id,
+            payload.asset_id,
             payload.employee_id,
             payload.start_time,
             payload.end_time,
@@ -25,11 +25,11 @@ def create_booking(payload: BookingCreateRequest, current_user=Depends(get_curre
 
 @router.get("", response_model=ApiResponse)
 def list_bookings(
-    resource_asset_id: int | None = Query(default=None),
+    asset_id: int | None = Query(default=None),
     current_user=Depends(get_current_user),
 ):
     employee_id = current_user["id"] if current_user.get("role") == "employee" else None
-    return ApiResponse(data=booking_service.list_bookings(employee_id=employee_id, resource_asset_id=resource_asset_id))
+    return ApiResponse(data=booking_service.list_bookings(employee_id=employee_id, asset_id=asset_id))
 
 
 @router.delete("/{booking_id}/cancel", response_model=ApiResponse, dependencies=[Depends(require_role("admin", "asset_manager", "employee"))])

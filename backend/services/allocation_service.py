@@ -68,3 +68,7 @@ def return_asset(allocation_id: int, notes=None):
 def list_overdue_allocations():
     return allocation_repo.list_overdue_allocations()
 
+
+def list_allocations():
+    return allocation_repo.list_allocations()
+

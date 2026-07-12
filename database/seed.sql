@@ -36,29 +36,40 @@ VALUES
 ('Vehicle','Company vehicles'),
 ('Furniture','Office furniture');
 
-INSERT INTO assets
-(asset_tag,name,category_id,serial_number,purchase_date,cost,location,asset_condition,status,is_bookable)
+INSERT INTO locations (name, address, type)
 VALUES
-('AF-0001','Dell Latitude 5440',1,'DL5440001','2025-01-10',75000,'IT Office','Excellent','Allocated',FALSE),
-('AF-0002','HP EliteBook 840',1,'HP840001','2025-02-05',72000,'IT Office','Good','Available',FALSE),
-('AF-0003','Lenovo ThinkPad E14',1,'LNE14001','2025-03-01',69000,'HR Office','Excellent','Allocated',FALSE),
-('AF-0004','Dell OptiPlex 7010',2,'DO701001','2024-11-20',55000,'Finance','Good','Available',FALSE),
-('AF-0005','HP LaserJet M404',3,'HPL40401','2024-10-15',28000,'Operations','Good','Available',FALSE),
-('AF-0006','Epson EcoTank L3250',3,'EPS325001','2025-01-15',22000,'HR','Average','Under Maintenance',FALSE),
-('AF-0007','Sony Projector VPL',4,'SONY001','2025-02-01',95000,'Conference Room','Excellent','Available',TRUE),
-('AF-0008','Epson Projector EB-X49',4,'EPX49001','2024-09-11',68000,'Meeting Room','Good','Reserved',TRUE),
-('AF-0009','Toyota Innova',5,'CAR001','2023-06-20',1850000,'Parking','Excellent','Available',TRUE),
-('AF-0010','Mahindra Scorpio',5,'CAR002','2023-08-18',1950000,'Parking','Good','Allocated',TRUE),
-('AF-0011','Executive Chair',6,'CHR001','2024-05-14',8500,'IT Office','Good','Available',FALSE),
-('AF-0012','Conference Table',6,'TAB001','2024-05-14',25000,'Conference Room','Excellent','Available',FALSE),
-('AF-0013','Dell Latitude 7420',1,'DL742001','2024-12-12',76000,'Finance','Excellent','Allocated',FALSE),
-('AF-0014','HP ProBook',1,'HPPRO001','2025-02-22',71000,'Operations','Good','Available',FALSE),
-('AF-0015','Canon Printer',3,'CAN001','2025-01-08',24000,'Finance','Good','Available',FALSE),
-('AF-0016','Meeting Room Display',4,'DSP001','2024-07-15',89000,'Meeting Room','Excellent','Available',TRUE),
-('AF-0017','MacBook Air M2',1,'MBA001','2025-04-10',115000,'IT Office','Excellent','Allocated',FALSE),
-('AF-0018','Dell Monitor 27"',6,'MON001','2025-02-18',18000,'HR Office','Excellent','Available',FALSE),
-('AF-0019','Office Sofa',6,'SOFA001','2023-10-10',42000,'Reception','Good','Available',FALSE),
-('AF-0020','Company Van',5,'VAN001','2022-03-14',1500000,'Parking','Good','Available',TRUE);
+('HQ - Floor 1', '100 Enterprise Blvd', 'Office'),
+('HQ - Floor 2', '100 Enterprise Blvd', 'Office'),
+('HQ - Floor 3', '100 Enterprise Blvd', 'Office'),
+('Data Center', '200 Server Lane', 'Data Center'),
+('Warehouse', '300 Storage Ave', 'Warehouse'),
+('Remote - East', 'Remote Location', 'Remote');
+
+INSERT INTO settings (org_name) VALUES ('Acme Corporation');
+
+INSERT INTO assets
+(asset_tag,name,category_id,serial_number,purchase_date,cost,location_id,asset_condition,status,is_bookable)
+VALUES
+('AF-0001','Dell Latitude 5440',1,'DL5440001','2025-01-10',75000,1,'Excellent','Allocated',FALSE),
+('AF-0002','HP EliteBook 840',1,'HP840001','2025-02-05',72000,1,'Good','Available',FALSE),
+('AF-0003','Lenovo ThinkPad E14',1,'LNE14001','2025-03-01',69000,2,'Excellent','Allocated',FALSE),
+('AF-0004','Dell OptiPlex 7010',2,'DO701001','2024-11-20',55000,3,'Good','Available',FALSE),
+('AF-0005','HP LaserJet M404',3,'HPL40401','2024-10-15',28000,1,'Good','Available',FALSE),
+('AF-0006','Epson EcoTank L3250',3,'EPS325001','2025-01-15',22000,2,'Average','Under Maintenance',FALSE),
+('AF-0007','Sony Projector VPL',4,'SONY001','2025-02-01',95000,1,'Excellent','Available',TRUE),
+('AF-0008','Epson Projector EB-X49',4,'EPX49001','2024-09-11',68000,2,'Good','Reserved',TRUE),
+('AF-0009','Toyota Innova',5,'CAR001','2023-06-20',1850000,5,'Excellent','Available',TRUE),
+('AF-0010','Mahindra Scorpio',5,'CAR002','2023-08-18',1950000,5,'Good','Allocated',TRUE),
+('AF-0011','Executive Chair',6,'CHR001','2024-05-14',8500,1,'Good','Available',FALSE),
+('AF-0012','Conference Table',6,'TAB001','2024-05-14',25000,1,'Excellent','Available',FALSE),
+('AF-0013','Dell Latitude 7420',1,'DL742001','2024-12-12',76000,3,'Excellent','Allocated',FALSE),
+('AF-0014','HP ProBook',1,'HPPRO001','2025-02-22',71000,1,'Good','Available',FALSE),
+('AF-0015','Canon Printer',3,'CAN001','2025-01-08',24000,3,'Good','Available',FALSE),
+('AF-0016','Meeting Room Display',4,'DSP001','2024-07-15',89000,2,'Excellent','Available',TRUE),
+('AF-0017','MacBook Air M2',1,'MBA001','2025-04-10',115000,1,'Excellent','Allocated',FALSE),
+('AF-0018','Dell Monitor 27"',6,'MON001','2025-02-18',18000,2,'Excellent','Available',FALSE),
+('AF-0019','Office Sofa',6,'SOFA001','2023-10-10',42000,1,'Good','Available',FALSE),
+('AF-0020','Company Van',5,'VAN001','2022-03-14',1500000,5,'Good','Available',TRUE);
 INSERT INTO allocations
 (asset_id, employee_id, department_id, expected_return_date, status)
 VALUES

@@ -219,7 +219,7 @@ export function AllocationsPage() {
                   </td>
                   <td className="px-4 py-3 text-xs text-gray-600">{emp?.role}</td>
                   <td className="px-4 py-3 text-xs text-gray-500">
-                    {formatDistanceToNow(new Date(al.fromDate), { addSuffix: true })}
+                    {al.fromDate ? formatDistanceToNow(new Date(al.fromDate), { addSuffix: true }) : ''}
                   </td>
                   <td className="px-4 py-3 text-xs text-gray-500">{al.toDate ?? '—'}</td>
                   <td className="px-4 py-3"><StatusBadge status={al.status} /></td>

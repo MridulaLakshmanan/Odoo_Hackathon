@@ -21,12 +21,12 @@ def get_category(category_id: int):
 
 @router.post("", response_model=ApiResponse, dependencies=[Depends(require_role("admin"))])
 def create_category(payload: CategoryCreateRequest):
-    return ApiResponse(message="Category created", data=category_service.create_category(payload.name))
+    return ApiResponse(message="Category created", data=category_service.create_category(payload.name, payload.description))
 
 
 @router.patch("/{category_id}", response_model=ApiResponse, dependencies=[Depends(require_role("admin"))])
 def update_category(category_id: int, payload: CategoryUpdateRequest):
-    return ApiResponse(message="Category updated", data=category_service.update_category(category_id, payload.name))
+    return ApiResponse(message="Category updated", data=category_service.update_category(category_id, payload.name, payload.description))
 
 
 @router.delete("/{category_id}", response_model=ApiResponse, dependencies=[Depends(require_role("admin"))])

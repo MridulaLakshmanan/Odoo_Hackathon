@@ -5,7 +5,7 @@ from pydantic import BaseModel, validator
 
 
 class BookingCreateRequest(BaseModel):
-    resource_asset_id: int
+    asset_id: int
     employee_id: int
     start_time: datetime
     end_time: datetime
@@ -20,7 +20,7 @@ class BookingCreateRequest(BaseModel):
 
 class BookingResponse(BaseModel):
     id: int
-    resource_asset_id: int
+    asset_id: int
     employee_id: int
     start_time: datetime
     end_time: datetime

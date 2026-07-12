@@ -16,6 +16,8 @@ from backend.routers.employees import router as employees_router
 from backend.routers.maintenance import router as maintenance_router
 from backend.routers.notifications import router as notifications_router
 from backend.routers.transfers import router as transfers_router
+from backend.routers.locations import router as locations_router
+from backend.routers.settings import router as settings_router
 
 
 app = FastAPI(title="AssetFlow API", version="1.0.0")
@@ -41,6 +43,8 @@ app.include_router(bookings_router)
 app.include_router(maintenance_router)
 app.include_router(dashboard_router)
 app.include_router(notifications_router)
+app.include_router(locations_router)
+app.include_router(settings_router)
 
 
 @app.on_event("startup")

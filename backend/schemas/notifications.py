@@ -9,6 +9,6 @@ class NotificationResponse(BaseModel):
     employee_id: int
     type: str
     message: str
-    is_read: bool
-    created_at: datetime
+    read: bool
+    timestamp: datetime
 

@@ -17,7 +17,7 @@ def create_asset(
     name: str,
     category_id: int,
     department_id: Optional[int],
-    location: Optional[str],
+    location_id: Optional[int],
     serial_number: Optional[str],
     description: Optional[str],
     is_bookable: bool = False,
@@ -27,12 +27,12 @@ def create_asset(
     return fetch_one(
         """
         INSERT INTO assets (
-            asset_tag, name, category_id, department_id, location, serial_number, description, is_bookable, status
+            asset_tag, name, category_id, department_id, location_id, serial_number, description, is_bookable, status
         )
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-        RETURNING id, asset_tag, name, category_id, department_id, location, serial_number, description, is_bookable, status
+        RETURNING id, asset_tag, name, category_id, department_id, location_id, serial_number, description, is_bookable, status
         """,
-        (asset_tag, name, category_id, department_id, location, serial_number, description, is_bookable, status),
+        (asset_tag, name, category_id, department_id, location_id, serial_number, description, is_bookable, status),
         cursor=cursor,
     )
 
@@ -51,16 +51,16 @@ def list_assets(filters: Optional[Dict[str, Any]] = None, cursor=None):
     if filters.get("department_id"):
         clauses.append("a.department_id = %s")
         params.append(filters["department_id"])
-    if filters.get("location"):
-        clauses.append("LOWER(a.location) = LOWER(%s)")
-        params.append(filters["location"])
+    if filters.get("location_id"):
+        clauses.append("a.location_id = %s")
+        params.append(filters["location_id"])
     if filters.get("is_bookable") is not None:
         clauses.append("a.is_bookable = %s")
         params.append(filters["is_bookable"])
 
     where_sql = f"WHERE {' AND '.join(clauses)}" if clauses else ""
     query = f"""
-        SELECT a.id, a.asset_tag, a.name, a.category_id, a.department_id, a.location,
+        SELECT a.id, a.asset_tag, a.name, a.category_id, a.department_id, a.location_id,
                a.serial_number, a.description, a.is_bookable, a.status,
                c.name AS category_name, d.name AS department_name
         FROM assets a
@@ -75,7 +75,7 @@ def list_assets(filters: Optional[Dict[str, Any]] = None, cursor=None):
 def get_asset_by_id(asset_id: int, cursor=None):
     return fetch_one(
         """
-     SELECT a.id, a.asset_tag, a.name, a.category_id, a.department_id, a.location,
+     SELECT a.id, a.asset_tag, a.name, a.category_id, a.department_id, a.location_id,
          a.serial_number, a.description, a.is_bookable, a.status,
          c.name AS category_name, d.name AS department_name
         FROM assets a
@@ -122,7 +122,7 @@ def update_asset(
     name: Optional[str] = None,
     category_id: Optional[int] = None,
     department_id: Optional[int] = None,
-    location: Optional[str] = None,
+    location_id: Optional[int] = None,
     serial_number: Optional[str] = None,
     description: Optional[str] = None,
     is_bookable: Optional[bool] = None,
@@ -135,22 +135,22 @@ def update_asset(
         SET name = COALESCE(%s, name),
             category_id = COALESCE(%s, category_id),
             department_id = COALESCE(%s, department_id),
-            location = COALESCE(%s, location),
+            location_id = COALESCE(%s, location_id),
             serial_number = COALESCE(%s, serial_number),
             description = COALESCE(%s, description),
             is_bookable = COALESCE(%s, is_bookable),
-            status = COALESCE(%s, status),
+            status = COALESCE(%s, status)
         WHERE id = %s
-        RETURNING id, asset_tag, name, category_id, department_id, location, serial_number, description, is_bookable, status
+        RETURNING id, asset_tag, name, category_id, department_id, location_id, serial_number, description, is_bookable, status
         """,
-        (name, category_id, department_id, location, serial_number, description, is_bookable, status, asset_id),
+        (name, category_id, department_id, location_id, serial_number, description, is_bookable, status, asset_id),
         cursor=cursor,
     )
 
 
 def update_status(asset_id: int, status: str, cursor=None):
     return fetch_one(
-        "UPDATE assets SET status = %s WHERE id = %s RETURNING id, asset_tag, name, category_id, department_id, location, serial_number, description, is_bookable, status",
+        "UPDATE assets SET status = %s WHERE id = %s RETURNING id, asset_tag, name, category_id, department_id, location_id, serial_number, description, is_bookable, status",
         (status, asset_id),
         cursor=cursor,
     )

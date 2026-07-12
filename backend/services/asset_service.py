@@ -3,7 +3,7 @@ from backend.core.logger import logger
 from backend.repositories import asset_repo, category_repo, department_repo
 
 
-def create_asset(name, category_id, department_id=None, location=None, serial_number=None, description=None, is_bookable=False):
+def create_asset(name, category_id, department_id=None, location_id=None, serial_number=None, description=None, is_bookable=False):
     if not category_repo.get_category_by_id(category_id):
         raise AppException(404, "Category not found", "CATEGORY_NOT_FOUND")
     if department_id and not department_repo.get_department_by_id(department_id):
@@ -14,7 +14,7 @@ def create_asset(name, category_id, department_id=None, location=None, serial_nu
         name,
         category_id,
         department_id,
-        location,
+        location_id,
         serial_number,
         description,
         is_bookable=is_bookable,

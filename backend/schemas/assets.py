@@ -7,7 +7,7 @@ class AssetCreateRequest(BaseModel):
     name: str
     category_id: int
     department_id: Optional[int] = None
-    location: Optional[str] = None
+    location_id: Optional[int] = None
     serial_number: Optional[str] = None
     description: Optional[str] = None
     is_bookable: Optional[bool] = False
@@ -23,7 +23,7 @@ class AssetUpdateRequest(BaseModel):
     name: Optional[str] = None
     category_id: Optional[int] = None
     department_id: Optional[int] = None
-    location: Optional[str] = None
+    location_id: Optional[int] = None
     serial_number: Optional[str] = None
     description: Optional[str] = None
     is_bookable: Optional[bool] = None
@@ -36,7 +36,7 @@ class AssetResponse(BaseModel):
     name: str
     category_id: int
     department_id: Optional[int] = None
-    location: Optional[str] = None
+    location_id: Optional[int] = None
     serial_number: Optional[str] = None
     description: Optional[str] = None
     is_bookable: bool = False

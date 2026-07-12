@@ -97,3 +97,17 @@ def list_active_allocations_for_employee(employee_id: int, cursor=None):
         (employee_id,),
         cursor=cursor,
     )
+
+
+def list_allocations(cursor=None):
+    return fetch_all(
+        """
+        SELECT al.id, al.asset_id, al.employee_id, al.department_id, e.name AS employee_name,
+               a.asset_tag, al.expected_return_date, al.status, al.allocated_at, al.returned_at
+        FROM allocations al
+        JOIN employees e ON e.id = al.employee_id
+        JOIN assets a ON a.id = al.asset_id
+        ORDER BY al.allocated_at DESC
+        """,
+        cursor=cursor,
+    )

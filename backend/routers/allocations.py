@@ -31,3 +31,8 @@ def return_allocation(allocation_id: int, payload: AllocationReturnRequest, curr
 @router.get("/overdue", response_model=ApiResponse, dependencies=[Depends(require_role("admin", "asset_manager"))])
 def overdue_allocations():
     return ApiResponse(data=allocation_service.list_overdue_allocations())
+
+
+@router.get("", response_model=ApiResponse)
+def list_allocations():
+    return ApiResponse(data=allocation_service.list_allocations())

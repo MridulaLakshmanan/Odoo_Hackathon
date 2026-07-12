@@ -82,6 +82,13 @@ CREATE TYPE notification_type_enum AS ENUM (
     'Reminder'
 );
 
+CREATE TYPE location_type AS ENUM (
+    'Office',
+    'Data Center',
+    'Warehouse',
+    'Remote'
+);
+
 -- ==========================================================
 -- DEPARTMENTS
 -- ==========================================================
@@ -139,6 +146,35 @@ CREATE TABLE asset_categories (
 );
 
 -- ==========================================================
+-- LOCATIONS
+-- ==========================================================
+
+CREATE TABLE locations (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    address TEXT,
+    type location_type DEFAULT 'Office'
+);
+
+-- ==========================================================
+-- SETTINGS
+-- ==========================================================
+
+CREATE TABLE settings (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    org_name VARCHAR(100) DEFAULT 'Acme Corporation',
+    timezone VARCHAR(50) DEFAULT 'UTC+0',
+    currency VARCHAR(10) DEFAULT 'USD',
+    notif_email BOOLEAN DEFAULT true,
+    notif_browser BOOLEAN DEFAULT true,
+    notif_warranty BOOLEAN DEFAULT true,
+    notif_overdue BOOLEAN DEFAULT true,
+    notif_maintenance BOOLEAN DEFAULT false,
+    two_fa BOOLEAN DEFAULT false,
+    session_timeout VARCHAR(20) DEFAULT '8h'
+);
+
+-- ==========================================================
 -- ASSETS
 -- ==========================================================
 
@@ -158,7 +194,7 @@ CREATE TABLE assets (
 
     cost NUMERIC(10,2),
 
-    location VARCHAR(100),
+    location_id INTEGER,
 
     asset_condition asset_condition_type
         DEFAULT 'Good',
@@ -172,7 +208,11 @@ CREATE TABLE assets (
 
     CONSTRAINT fk_asset_category
         FOREIGN KEY(category_id)
-        REFERENCES asset_categories(id)
+        REFERENCES asset_categories(id),
+
+    CONSTRAINT fk_asset_location
+        FOREIGN KEY(location_id)
+        REFERENCES locations(id)
 
 );
 
